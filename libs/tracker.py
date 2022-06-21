@@ -22,7 +22,7 @@ class Sort_OH(object):
         self.conf_trgt = 0
         self.conf_objt = 0
 
-    def update(self, dets, gts):
+    def update(self, dets):
         """
     Params:
       dets - a numpy array of detections in the format [[x1,y1,x2,y2,score],[x1,y1,x2,y2,score],...]
@@ -118,9 +118,9 @@ class Sort_OH(object):
             self.unmatched_before = self.unmatched
 
         # get position of unmatched ground truths
-        unmatched_gts_pos = []
-        for g in unmatched_gts:
-            unmatched_gts_pos.append(gts[g, :].reshape(1, 5))
+        #unmatched_gts_pos = []
+        #for g in unmatched_gts:
+        #    unmatched_gts_pos.append(gts[g, :].reshape(1, 5))
 
         i = len(self.trackers)
         for trk in reversed(self.trackers):
@@ -133,12 +133,12 @@ class Sort_OH(object):
                 self.trackers.pop(i)
         out1 = np.empty((0, 5))
         out2 = np.empty((0, 5))
-        out3 = np.empty((0, 5))
+        #out3 = np.empty((0, 5))
 
         if len(ret) > 0:
             out1 = np.concatenate(ret)
         if len(unmatched_trks_pos) > 0:
             out2 = np.concatenate(unmatched_trks_pos)
-        if len(unmatched_gts_pos) > 0:
-            out3 = np.concatenate(unmatched_gts_pos)
-        return out1, out2, out3
+        #if len(unmatched_gts_pos) > 0:
+        #    out3 = np.concatenate(unmatched_gts_pos)
+        return out1, out2#, out3
